@@ -1,0 +1,31 @@
+{
+  "name": "nominatim-client",
+  "version": "1.0.0",
+  "description": "A simple node module to handle nominatim searches",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/demsking/nominatim-client.git"
+  },
+  "keywords": [
+    "nominatim",
+    "geocode",
+    "reverse geocode",
+    "osm",
+    "place",
+    "search"
+  ],
+  "author": "Sébastien Demanou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/demsking/nominatim-client/issues"
+  },
+  "homepage": "https://github.com/demsking/nominatim-client#readme",
+  "dependencies": {
+    "debug": "^2.2.0",
+    "should": "^8.3.0"
+  }
+}
