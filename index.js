@@ -37,11 +37,7 @@ var query = function(path, done) {
         });
 
         res.on('end', function() {
-            try {
-                done(false, output, path);
-            } catch(e) {
-                done(e, output, path);
-            }
+            done(false, output, path);
         });
     }).on('error', function(e) {
         done(e, null, path, null);
