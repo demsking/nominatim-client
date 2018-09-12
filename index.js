@@ -2,9 +2,12 @@
 
 var https = require('https');
 
-const API_ENDPOINT = 'nominatim.openstreetmap.org';
+var API_HOST = 'nominatim.openstreetmap.org';
 
 var global = {};
+var API_PORT = 443;
+var API_PATH = '';
+
 
 var to_encode_uri = function(params, done) {
     params.format = params.format || 'json';
@@ -25,8 +28,9 @@ var to_encode_uri = function(params, done) {
 
 var query = function(path,options, done) {
     https.get({
-        host: API_ENDPOINT,
-        path: path,
+        host: API_HOST,
+        port: API_PORT,
+        path: API_PATH + path,
         headers: options.headers || {},
     }, function(res) {
         var output = '';
@@ -60,8 +64,17 @@ var query_done = function(params, done) {
 };
 
 module.exports = {
-    global: function(globals, value) {
-        global = globals;
+    global: function(globals ) {
+      if (typeof globals === 'undefined' || globals === null) {
+          // variable is undefined or null
+          //just do nothing
+        } else {
+          global = globals.globalQueryElements || {};
+          API_HOST = globals.customHost || API_HOST;
+          API_PORT = globals.customPort || API_PORT;
+          API_PATH = globals.customPath || API_PATH;
+        }
+
     },
 
     search: function(params,options, done) {

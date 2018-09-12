@@ -18,9 +18,14 @@ var nominatim = require('nominatim-client');
 
 // Set the global settings here
 nominatim.global({
+  globalQueryElements: {
     useragent: "MyApp",             // The name of your application
     referer: 'http://example.com',  // The referer link
     email: 'user@example.com'       // The valid email
+  },
+  customPath: "/nominatim",     //  exemple for server
+  customPort: 1234,             //  or (search) https://localhost:1234/nominatim/?...  
+  customEndPoint: "localhost",  //  or (reverse) https://localhost:1234/nominatim/reverse?...
 });
 
 // The query
