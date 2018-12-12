@@ -56,7 +56,12 @@ var query_done = function(params, done) {
         }
 
         if (params.format == 'json') {
-            data = JSON.parse(data);
+            try {
+                data = JSON.parse(data);
+            } catch(e) {
+                console.error('ERROR parsing json : '+e);
+                return done(e);
+            }
         }
 
         done(false, data, path);
