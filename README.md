@@ -2,10 +2,6 @@
 
 _nominatim-client_ is a basic node module to handle geocoding and reverse geocoding via [OpenStreetMap](http://openstreetmap.org/) (OSM). It attempts to adhere to the [Nominatim usage policy](http://wiki.openstreetmap.org/wiki/Nominatim_usage_policy).
 
-[![Build Status](https://travis-ci.org/demsking/nominatim-client.svg?branch=master)](https://travis-ci.org/demsking/nominatim-client)
-[![bitHound Overall Score](https://www.bithound.io/github/demsking/nominatim-client/badges/score.svg)](https://www.bithound.io/github/demsking/nominatim-client)
-[![bitHound Dependencies](https://www.bithound.io/github/demsking/nominatim-client/badges/dependencies.svg)](https://www.bithound.io/github/demsking/nominatim-client/master/dependencies/npm)
-
 ## Installation
 
 ```shell
@@ -37,7 +33,7 @@ nominatim.search(query, function(err, data) {
     if (err) {
         throw err;
     }
-    
+
     console.log(data);
 });
 ```
@@ -78,7 +74,7 @@ nominatim.reverse(query, function (err, data) {
     if (err) {
         throw err;
     }
-    
+
     console.log(data);
 });
 ```
@@ -106,7 +102,7 @@ Output:
   boundingbox: [ '3.8696101', '3.8697112', '11.5237394', '11.5238284' ] }
 ```
 
-## License 
+## License
 
 (The MIT License)
 
