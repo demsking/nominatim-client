@@ -22,11 +22,9 @@ nominatim.search(query, function(err, data) {
     if (err) {
         throw err;
     }
-    
-    console.log(data);
-    
+
     log('data: ' + util.inspect(data));
-    
+
     data[0].should.have.property('lon');
     data[0].should.have.property('lat');
     data[0].should.have.property('address');
@@ -42,11 +40,9 @@ nominatim.reverse(query, function (err, data) {
     if (err) {
         throw err;
     }
-    
-    console.log(data);
-    
+
     log('data: ' + util.inspect(data));
-    
+
     data.should.have.property('lon');
     data.should.have.property('lat');
     data.should.have.property('address');
