@@ -69,6 +69,7 @@ publish:
     - triggers
   script:
     - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
+    - npm set registry --registry="https://registry.npmjs.org/"
     - npm publish
   environment:
     name: npm
