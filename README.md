@@ -1,44 +1,45 @@
 # Nominatim Client
 
-_nominatim-client_ is a basic node module to handle geocoding and reverse geocoding via [OpenStreetMap](http://openstreetmap.org/) (OSM). It attempts to adhere to the [Nominatim usage policy](http://wiki.openstreetmap.org/wiki/Nominatim_usage_policy).
+A basic node module to handle geocoding and reverse geocoding via
+[OpenStreetMap (OSM)](http://openstreetmap.org/).
+It attempts to adhere to the [Nominatim Usage Policy](https://operations.osmfoundation.org/policies/nominatim/).
 
-## Installation
+[![npm](https://img.shields.io/npm/v/nominatim-client.svg)](https://www.npmjs.com/package/nominatim-client)
+[![Build status](https://gitlab.com/demsking/nominatim-client/badges/master/pipeline.svg)](https://gitlab.com/demsking/nominatim-client/pipelines)
+[![Test coverage](https://gitlab.com/demsking/nominatim-client/badges/master/coverage.svg)](https://gitlab.com/demsking/nominatim-client/pipelines)
+[![Buy me a beer](https://img.shields.io/badge/Buy%20me-a%20beer-1f425f.svg)](https://www.buymeacoffee.com/demsking)
 
-```shell
-npm install --save nominatim-client
+## Install
+
+```sh
+npm install nominatim-client
 ```
 
 ## Usage
+
 ```js
-var nominatim = require('nominatim-client');
+const nominatim = require('nominatim-client');
 
-// Set the global settings here
-nominatim.global({
-    useragent: "MyApp",             // The name of your application
-    referer: 'http://example.com',  // The referer link
-    email: 'user@example.com'       // The valid email
+const client = nominatim.createClient({
+  useragent: "MyApp",             // The name of your application
+  referer: 'http://example.com',  // The referer link
+  email: 'user@example.com'       // The valid email
 });
-
-// The query
-var query = {
-    q: 'Avenue Monseigneur Vogt, Yaounde, Cameroon',
-    addressdetails: '1'
-};
 ```
 
-### Search
+**Search**
 
 ```js
-nominatim.search(query, function(err, data) {
-    if (err) {
-        throw err;
-    }
+const query = {
+  q: 'Avenue Monseigneur Vogt, Yaounde, Cameroon',
+  addressdetails: '1'
+};
 
-    console.log(data);
-});
+nominatim.search(query).then((result) => console.log(result));
 ```
 
 Output:
+
 ```js
 [ { place_id: '81750916',
     licence: 'Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright',
@@ -62,21 +63,15 @@ Output:
        country_code: 'cm' } } ]
 ```
 
-### Reverse
+**Reverse**
 
 ```js
-query = {
-    lat: 3.869414,
-    lon: 11.523433
+const query = {
+  lat: 3.869414,
+  lon: 11.523433
 };
 
-nominatim.reverse(query, function (err, data) {
-    if (err) {
-        throw err;
-    }
-
-    console.log(data);
-});
+client.reverse(query).then((result) => console.log(result));
 ```
 
 Output:
@@ -102,27 +97,22 @@ Output:
   boundingbox: [ '3.8696101', '3.8697112', '11.5237394', '11.5238284' ] }
 ```
 
+## Versioning
+
+Given a version number `MAJOR.MINOR.PATCH`, increment the:
+
+- `MAJOR` version when you make incompatible API changes,
+- `MINOR` version when you add functionality in a backwards-compatible manner,
+  and
+- `PATCH` version when you make backwards-compatible bug fixes.
+
+Additional labels for pre-release and build metadata are available as extensions
+to the `MAJOR.MINOR.PATCH` format.
+
+See [SemVer.org](https://semver.org/) for more details.
+
 ## License
 
-(The MIT License)
-
-Copyright (c) 2016 Sébastien Demanou
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Under the MIT license.
+See [LICENSE](https://gitlab.com/demsking/nominatim-client/blob/master/LICENSE)
+file for more details.

@@ -1,75 +1,50 @@
-'use strict';
-
-var https = require('https');
+const https = require('https');
 
 const API_ENDPOINT = 'nominatim.openstreetmap.org';
-
-var global = {};
-
-var to_encode_uri = function(params, done) {
-    params.format = params.format || 'json';
-    params.useragent = params.useragent || 'NodeJS request';
-
-    var params_query = [];
-
-    for (let i in global) {
-        params_query.push(i + '=' + encodeURIComponent(global[i]));
-    }
-
-    for (let i in params) {
-        params_query.push(i + '=' + encodeURIComponent(params[i]));
-    }
-
-    return params_query.join('&');
+const defaultOptions = {
+  useragent: 'NodeJS request',
 };
 
-var query = function(path, done) {
-    https.get({
-        host: API_ENDPOINT,
-        path: path
-    }, function(res) {
-        var output = '';
+const defaultParams = {
+  format: 'json',
+}
 
-        res.setEncoding('utf8');
+function encode(params) {
+  const params_query = [];
 
-        res.on('data', function (chunk) {
-            output += chunk;
-        });
+  for (const key in params) {
+    params_query.push(key + '=' + encodeURIComponent(params[key]));
+  }
 
-        res.on('end', function() {
-            done(false, output, path);
-        });
-    }).on('error', function(e) {
-        done(e, null, path, null);
-    });
+  return params_query.join('&');
 };
 
-var query_done = function(params, done) {
-    return function(err, data, path) {
-        if (err) {
-            return done(err);
-        }
+function query(path, params) {
+  return new Promise((resolve, reject) => {
+    const url = path + '?' + encode(params);
 
-        if (params.format == 'json') {
-            data = JSON.parse(data);
-        }
+    https.get({ host: API_ENDPOINT, path: url }, (res) => {
+      let data = '';
 
-        done(false, data, path);
-    };
+      res.setEncoding('utf8');
+      res.on('error', reject);
+
+      res.on('data', (chunk) => {
+          data += chunk;
+      });
+
+      res.on('end', () => {
+        data = params.format === 'json' ? JSON.parse(data) : data;
+
+        resolve(data);
+      });
+    }).on('error', reject);
+  });
 };
 
 module.exports = {
-    global: function(globals, value) {
-        global = globals;
-    },
-
-    search: function(params, done) {
-        query('/?' + to_encode_uri(params), query_done(params, done));
-    },
-
-    reverse: function(params, done) {
-        params.zoom = params.zoom || 18;
-
-        query('/reverse?' + to_encode_uri(params), query_done(params, done));
-    },
+  createClient: (options) => ({
+    search: (params) => query('/', { ...defaultOptions, ...options, ...defaultParams, ...params }),
+    reverse: (params) => query('/reverse', { ...defaultOptions, ...options, ...defaultParams, zoom: 18, ...params }),
+  }),
 };

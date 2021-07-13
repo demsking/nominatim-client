@@ -3,12 +3,15 @@
   "version": "1.1.0",
   "description": "A simple node module to handle nominatim searches",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
-    "test": "node test"
+    "test": "jest --coverage",
+    "lint": "eslint index.js __tests__",
+    "lint:fix": "eslint --fix index.js __tests__"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/demsking/nominatim-client.git"
+    "url": "git@gitlab.com:demsking/nominatim-client.git"
   },
   "keywords": [
     "nominatim",
@@ -21,11 +24,11 @@
   "author": "Sébastien Demanou",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/demsking/nominatim-client/issues"
+    "url": "https://gitlab.com/demsking/nominatim-client/-/issues"
   },
-  "homepage": "https://github.com/demsking/nominatim-client#readme",
+  "homepage": "https://gitlab.com/demsking/nominatim-client#nominatim-client",
   "devDependencies": {
-    "debug": "^2.2.0",
-    "should": "^11.2.0"
+    "eslint": "^7.30.0",
+    "jest": "^27.0.6"
   }
 }

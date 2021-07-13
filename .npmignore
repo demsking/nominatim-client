@@ -1,0 +1,8 @@
+__tests__
+coverage
+.directory
+.eslintrc
+.gitignore
+.gitlab-ci.yml
+.eslintrc.js
+*.tgz
