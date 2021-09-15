@@ -1,10 +1,6 @@
 const https = require('https');
 
 const API_ENDPOINT = 'nominatim.openstreetmap.org';
-const defaultOptions = {
-  useragent: 'NodeJS request',
-};
-
 const defaultParams = {
   format: 'json',
 }
@@ -19,11 +15,11 @@ function encode(params) {
   return params_query.join('&');
 };
 
-function query(path, params) {
+function query(path, { headers, ...params }) {
   return new Promise((resolve, reject) => {
     const url = path + '?' + encode(params);
 
-    https.get({ host: API_ENDPOINT, path: url }, (res) => {
+    https.get({ host: API_ENDPOINT, path: url, headers }, (res) => {
       let data = '';
 
       res.setEncoding('utf8');
@@ -34,17 +30,28 @@ function query(path, params) {
       });
 
       res.on('end', () => {
-        data = params.format === 'json' ? JSON.parse(data) : data;
+        try {
+          data = params.format === 'json' ? JSON.parse(data) : data;
 
-        resolve(data);
+          resolve(data);
+        } catch (err) {
+          reject(err);
+        }
       });
     }).on('error', reject);
   });
 };
 
 module.exports = {
-  createClient: (options) => ({
-    search: (params) => query('/', { ...defaultOptions, ...options, ...defaultParams, ...params }),
-    reverse: (params) => query('/reverse', { ...defaultOptions, ...options, ...defaultParams, zoom: 18, ...params }),
-  }),
+  createClient: ({ useragent, referer, ...options }) => {
+    const headers = {
+      'User-Agent': useragent,
+      referer,
+    };
+
+    return {
+      search: (params) => query('/', { ...defaultParams, ...options, ...params, headers }),
+      reverse: (params) => query('/reverse', { ...defaultParams, zoom: 18, ...options, ...params, headers }),
+    };
+  },
 };

@@ -8,11 +8,6 @@ export type Options = {
    * Referer link
    */
   referer: string;
-
-  /**
-   * A valid email address
-   */
-  email: string;
 };
 
 export type SearchOptions = {
