@@ -23,7 +23,6 @@ const nominatim = require('nominatim-client');
 const client = nominatim.createClient({
   useragent: "MyApp",             // The name of your application
   referer: 'http://example.com',  // The referer link
-  email: 'user@example.com'       // The valid email
 });
 ```
 
