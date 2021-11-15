@@ -6,3 +6,5 @@ coverage
 .gitlab-ci.yml
 .eslintrc.js
 *.tgz
+lib
+rollup.config.js

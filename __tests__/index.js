@@ -1,4 +1,4 @@
-const nominatim = require('..');
+const nominatim = require('../lib/nominatim.node');
 
 const client = nominatim.createClient({
   useragent: "nominatim-client",
@@ -8,7 +8,7 @@ const client = nominatim.createClient({
 
 test('search', () => {
   const query = {
-    q: 'Avenue Monseigneur Vogt, Yaounde, Cameroon',
+    q: '7 Chemin des Prunais Villiers sur Marne',
     addressdetails: 1,
   };
 

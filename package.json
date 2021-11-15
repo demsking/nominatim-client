@@ -1,13 +1,16 @@
 {
   "name": "nominatim-client",
   "version": "2.0.2",
-  "description": "A simple node module to handle nominatim searches",
-  "main": "index.js",
+  "description": "A simple client to handle nominatim searches",
+  "main": "nominatim.node.js",
+  "browser": "nominatim.browser.js",
+  "module": "nominatim.module.mjs",
   "types": "index.d.ts",
   "scripts": {
     "test": "jest --coverage",
-    "lint": "eslint index.js __tests__",
-    "lint:fix": "eslint --fix index.js __tests__"
+    "lint": "eslint lib __tests__",
+    "lint:fix": "eslint --fix lib __tests__",
+    "build": "rollup -c --preferConst"
   },
   "repository": {
     "type": "git",
@@ -28,7 +31,11 @@
   },
   "homepage": "https://gitlab.com/demsking/nominatim-client#nominatim-client",
   "devDependencies": {
-    "eslint": "^7.30.0",
-    "jest": "^27.0.6"
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "eslint": "^8.2.0",
+    "jest": "^27.0.6",
+    "rollup": "^2.60.0",
+    "rollup-plugin-terser": "^7.0.2"
   }
 }

@@ -1,6 +1,6 @@
 # Nominatim Client
 
-A basic node module to handle geocoding and reverse geocoding via
+A simple client to handle geocoding and reverse geocoding via
 [OpenStreetMap (OSM)](http://openstreetmap.org/).
 It attempts to adhere to the [Nominatim Usage Policy](https://operations.osmfoundation.org/policies/nominatim/).
 
@@ -26,11 +26,11 @@ const client = nominatim.createClient({
 });
 ```
 
-**Search**
+**[Search](https://nominatim.org/release-docs/develop/api/Search/)**
 
 ```js
 const query = {
-  q: 'Avenue Monseigneur Vogt, Yaounde, Cameroon',
+  q: '1 boulevard Anatole France Belfort',
   addressdetails: '1'
 };
 
@@ -39,35 +39,46 @@ nominatim.search(query).then((result) => console.log(result));
 
 Output:
 
-```js
-[ { place_id: '81750916',
-    licence: 'Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright',
-    osm_type: 'way',
-    osm_id: '97815221',
-    boundingbox: [ '3.8623122', '3.8708124', '11.5208506', '11.5238461' ],
-    lat: '3.8667843',
-    lon: '11.5225728',
-    display_name: 'Avenue Monseigneur Vogt, Centre Commercial, Yaoundé I, CUY, Mfoundi, CE, 1561, Cameroun',
-    class: 'highway',
-    type: 'secondary',
-    importance: 0.4,
-    address:
-     { road: 'Avenue Monseigneur Vogt',
-       suburb: 'Centre Commercial',
-       city: 'Yaoundé I',
-       county: 'CUY',
-       state: 'CE',
-       postcode: '1561',
-       country: 'Cameroun',
-       country_code: 'cm' } } ]
+```json
+[
+  {
+    "place_id": 273995170,
+    "licence": "Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",
+    "osm_type": "way",
+    "osm_id": 929173018,
+    "boundingbox": [
+      "47.6405466",
+      "47.640965",
+      "6.8419814",
+      "6.8480751"
+    ],
+    "lat": "47.6407423",
+    "lon": "6.844936",
+    "display_name": "Boulevard Anatole France, Le Mont Sud, Belfort, Territoire-de-Belfort, Bourgogne-Franche-Comté, Metropolitan France, 90000, France",
+    "class": "highway",
+    "type": "primary",
+    "importance": 0.5199999999999999,
+    "address": {
+      "road": "Boulevard Anatole France",
+      "suburb": "Le Mont Sud",
+      "city": "Belfort",
+      "municipality": "Belfort",
+      "county": "Territoire-de-Belfort",
+      "state": "Bourgogne-Franche-Comté",
+      "country": "France",
+      "postcode": "90000",
+      "country_code": "fr"
+    }
+  }
+]
 ```
 
-**Reverse**
+**[Reverse](https://nominatim.org/release-docs/develop/api/Reverse/)**
 
 ```js
 const query = {
-  lat: 3.869414,
-  lon: 11.523433
+  lat: 47.6407423,
+  lon: 6.844936
 };
 
 client.reverse(query).then((result) => console.log(result));
@@ -75,25 +86,35 @@ client.reverse(query).then((result) => console.log(result));
 
 Output:
 
-```js
-{ place_id: '122705430',
-  licence: 'Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright',
-  osm_type: 'way',
-  osm_id: '270179822',
-  lat: '3.8696559',
-  lon: '11.5237866599278',
-  display_name: 'Le Bois d\'Ébène, Avenue Monseigneur Vogt, Centre Commercial, Yaoundé I, CUY, Mfoundi, CE, 1561, Cameroun',
-  address:
-   { restaurant: 'Le Bois d\'Ébène',
-     road: 'Avenue Monseigneur Vogt',
-     suburb: 'Centre Commercial',
-     city: 'Yaoundé I',
-     county: 'CUY',
-     state: 'CE',
-     postcode: '1561',
-     country: 'Cameroun',
-     country_code: 'cm' },
-  boundingbox: [ '3.8696101', '3.8697112', '11.5237394', '11.5238284' ] }
+```json
+{
+  "place_id": 119321832,
+  "licence": "Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",
+  "osm_type": "way",
+  "osm_id": 79763493,
+  "lat": "47.64105015",
+  "lon": "6.845205480320034",
+  "display_name": "C, 8A, Boulevard Anatole France, Barres Le Mont, Belfort, Territoire-de-Belfort, Bourgogne-Franche-Comté, Metropolitan France, 90000, France",
+  "address": {
+    "building": "C",
+    "house_number": "8A",
+    "road": "Boulevard Anatole France",
+    "suburb": "Barres Le Mont",
+    "city": "Belfort",
+    "municipality": "Belfort",
+    "county": "Territoire-de-Belfort",
+    "state": "Bourgogne-Franche-Comté",
+    "country": "France",
+    "postcode": "90000",
+    "country_code": "fr"
+  },
+  "boundingbox": [
+    "47.6409593",
+    "47.6411156",
+    "6.8449412",
+    "6.8454734"
+  ]
+}
 ```
 
 ## Versioning
