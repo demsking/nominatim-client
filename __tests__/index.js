@@ -1,4 +1,4 @@
-const nominatim = require('../lib/nominatim.node');
+const nominatim = require('../lib/nominatim');
 
 const client = nominatim.createClient({
   useragent: "nominatim-client",

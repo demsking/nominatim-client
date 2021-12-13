@@ -15,28 +15,10 @@ It attempts to adhere to the [Nominatim Usage Policy](https://operations.osmfoun
 npm install nominatim-client
 ```
 
-## Compatibility
-
-- Node.js
-- Browsers with support of [Fetch API feature](https://caniuse.com/fetch)
-
-## Import
-
-**Node.js import**
-
-```js
-const nominatim = require('nominatim-client');
-```
-
-**Browser import**
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/nominatim-client"></script>
-```
-
 ## Usage
 
 ```js
+const nominatim = require('nominatim-client');
 const client = nominatim.createClient({
   useragent: "MyApp",             // The name of your application
   referer: 'http://example.com',  // The referer link
