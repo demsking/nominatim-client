@@ -2,9 +2,9 @@
   "name": "nominatim-client",
   "version": "3.0.0",
   "description": "A simple client to handle nominatim searches",
-  "main": "nominatim.node.js",
-  "browser": "nominatim.browser.js",
-  "module": "nominatim.module.mjs",
+  "main": "nominatim.node.min.js",
+  "browser": "nominatim.browser.min.js",
+  "module": "nominatim.module.min.mjs",
   "types": "index.d.ts",
   "scripts": {
     "test": "jest --coverage",

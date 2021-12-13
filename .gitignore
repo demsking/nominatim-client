@@ -1,6 +1,5 @@
 /node_modules/
 coverage/
-/nominatim.browser.js
-/nominatim.module.mjs
-/nominatim.node.js
+*.min.*
 *.map
+*.tgz

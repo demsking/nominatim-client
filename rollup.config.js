@@ -3,6 +3,14 @@ import commonjs from '@rollup/plugin-commonjs';
 import { terser } from "rollup-plugin-terser";
 import pkg from './package.json';
 
+const BANNER = `/* ${pkg.name} v${pkg.version} (c) ${pkg.author} - ${pkg.license} */`;
+const terserPlugin = terser({
+  compress: true,
+  output: {
+    comments: new RegExp(`^ ${pkg.name}`)
+  },
+});
+
 export default [
   // browser-friendly UMD build
   {
@@ -12,11 +20,12 @@ export default [
       file: pkg.browser,
       format: 'umd',
       sourcemap: true,
+      banner: BANNER,
     },
     plugins: [
       resolve(),
       commonjs(),
-      terser(),
+      terserPlugin,
     ],
   },
 
@@ -25,11 +34,12 @@ export default [
     input: 'lib/nominatim.node.js',
     external: ['https'],
     output: [
-      { file: pkg.main, format: 'cjs', sourcemap: true },
-      { file: pkg.module, format: 'es', sourcemap: true },
+      { file: pkg.main, format: 'cjs', sourcemap: true, banner: BANNER },
+      { file: pkg.module, format: 'es', sourcemap: true, banner: BANNER },
     ],
     plugins: [
       commonjs(),
+      terserPlugin,
     ],
   },
 ];
