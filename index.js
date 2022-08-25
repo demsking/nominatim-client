@@ -83,7 +83,7 @@ module.exports = {
     },
 
     search: function(params,options, done) {
-        query('/?' + to_encode_uri(params), options,query_done(params, done));
+        query('/search?' + to_encode_uri(params), options,query_done(params, done));
     },
 
     reverse: function(params,options, done) {
